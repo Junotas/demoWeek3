@@ -15,7 +15,7 @@ public class UserRegistrationService {
         while (continueLoop) {
             System.out.println("Welcome to User Registration!(Admin Edition)");
 
-            System.out.print("Do you want to add, delete, view users, or exit? (add/delete/view/exit): ");
+            System.out.print("Do you want to add, delete, view users, remove all users, or exit? (add/delete/view/remove all/exit): ");
             String action = scanner.nextLine().toLowerCase();
 
             switch (action) {
@@ -28,11 +28,14 @@ public class UserRegistrationService {
                 case "view":
                     viewUsers();
                     break;
+                case "remove all":
+                    removeAllUsers();
+                    break;
                 case "exit":
                     continueLoop = false;
                     break;
                 default:
-                    System.out.println("Invalid action. Please choose 'add', 'delete', 'view', or 'exit'.");
+                    System.out.println("Invalid action. Please choose 'add', 'delete', 'view', 'remove all', or 'exit'.");
             }
         }
     }
@@ -88,7 +91,6 @@ public class UserRegistrationService {
         }
     }
 
-
     private void removeUser(Scanner scanner) {
 
         if (userService.getUserList().isEmpty()) {
@@ -104,19 +106,26 @@ public class UserRegistrationService {
 
     private void viewUsers() {
 
-        if(userService.getUserList().isEmpty()) {
+        if (userService.getUserList().isEmpty()) {
             System.out.println("There are no users to view!");
             return;
         }
 
         System.out.println("All Users:");
+        System.out.println("=========================");
         for (User u : userService.getUserList()) {
             System.out.println("Username: " + u.getUsername());
             System.out.println("Email: " + u.getEmail());
             System.out.println("ID: " + u.getPersonalId());
             System.out.println("Age: " + u.getAge());
             System.out.println("Gender: " + u.getGender());
-            System.out.println("----------------------");
+            System.out.println("=========================");
+
         }
+    }
+
+    private void removeAllUsers() {
+        userService.removeAllUsers();
+        System.out.println("All users removed successfully.");
     }
 }

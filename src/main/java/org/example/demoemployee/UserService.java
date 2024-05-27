@@ -1,6 +1,7 @@
 package org.example.demoemployee;
 
 import org.springframework.stereotype.Service;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,6 +38,14 @@ public class UserService {
         } else {
             System.out.println("User not found.");
         }
+    }
+
+    public void removeAllUsers() {
+        userList.clear();
+        usernameList.clear();
+        emailByUsernameMap.clear();
+        saveUsersToFile();
+        System.out.println("All users removed successfully.");
     }
 
     public List<User> getUserList() {
