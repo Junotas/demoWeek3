@@ -13,7 +13,7 @@ public class UserRegistrationService {
     public void performUserActions(Scanner scanner) {
         boolean continueLoop = true;
         while (continueLoop) {
-            System.out.println("Welcome to User Registration!");
+            System.out.println("Welcome to User Registration!(Admin Edition)");
 
             System.out.print("Do you want to add, delete, view users, or exit? (add/delete/view/exit): ");
             String action = scanner.nextLine().toLowerCase();
@@ -90,6 +90,12 @@ public class UserRegistrationService {
 
 
     private void removeUser(Scanner scanner) {
+
+        if (userService.getUserList().isEmpty()) {
+            System.out.println("There are no users to remove!");
+            return;
+        }
+
         System.out.print("Enter the username of the user to remove: ");
         String usernameToRemove = scanner.nextLine();
         userService.removeUser(usernameToRemove);
@@ -97,6 +103,12 @@ public class UserRegistrationService {
     }
 
     private void viewUsers() {
+
+        if(userService.getUserList().isEmpty()) {
+            System.out.println("There are no users to view!");
+            return;
+        }
+
         System.out.println("All Users:");
         for (User u : userService.getUserList()) {
             System.out.println("Username: " + u.getUsername());
