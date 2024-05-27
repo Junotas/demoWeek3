@@ -34,8 +34,6 @@ public class UserRegistrationService {
                 default:
                     System.out.println("Invalid action. Please choose 'add', 'delete', 'view', or 'exit'.");
             }
-
-            displayUserInformation();
         }
     }
 
@@ -45,11 +43,26 @@ public class UserRegistrationService {
             System.out.print("Enter your username: ");
             String username = scanner.nextLine();
 
+            if (userService.getUsernameList().contains(username)) {
+                System.out.println("Username already exists. Please choose a different username.");
+                continue;
+            }
+
             System.out.print("Enter your email: ");
             String email = scanner.nextLine();
 
-            System.out.print("Enter your ID: ");
+            if (userService.getEmailByUsername(email) != null) {
+                System.out.println("Email already exists. Please choose a different email.");
+                continue;
+            }
+
+            System.out.print("Enter your ID (Personnummer): ");
             String id = scanner.nextLine();
+
+            if (userService.getUserList().stream().anyMatch(user -> user.getPersonalId().equals(id))) {
+                System.out.println("ID already exists. Please choose a different ID.");
+                continue;
+            }
 
             System.out.print("Enter your age: ");
             String age = scanner.nextLine();
@@ -75,6 +88,7 @@ public class UserRegistrationService {
         }
     }
 
+
     private void removeUser(Scanner scanner) {
         System.out.print("Enter the username of the user to remove: ");
         String usernameToRemove = scanner.nextLine();
@@ -87,27 +101,10 @@ public class UserRegistrationService {
         for (User u : userService.getUserList()) {
             System.out.println("Username: " + u.getUsername());
             System.out.println("Email: " + u.getEmail());
-            System.out.println("ID: " + u.getId());
+            System.out.println("ID: " + u.getPersonalId());
             System.out.println("Age: " + u.getAge());
             System.out.println("Gender: " + u.getGender());
             System.out.println("----------------------");
-        }
-    }
-
-    private void displayUserInformation() {
-        System.out.println("Users added:");
-        for (User u : userService.getUserList()) {
-            System.out.println("Username: " + u.getUsername());
-            System.out.println("Email: " + u.getEmail());
-            System.out.println("ID: " + u.getId());
-            System.out.println("Age: " + u.getAge());
-            System.out.println("Gender: " + u.getGender());
-            System.out.println("----------------------");
-        }
-
-        System.out.println("All entered usernames and emails:");
-        for (String username : userService.getUsernameList()) {
-            System.out.println("Username: " + username + ", Email: " + userService.getEmailByUsername(username));
         }
     }
 }

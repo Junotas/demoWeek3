@@ -3,14 +3,14 @@ package org.example.demoemployee;
 public class User {
     private final String username;
     private final String email;
-    private final String id;
+    private final String personalId;
     private final String age;
     private final String gender;
 
     private User(Builder builder) {
         this.username = builder.username;
         this.email = builder.email;
-        this.id = builder.id;
+        this.personalId = builder.id;
         this.age = builder.age;
         this.gender = builder.gender;
     }
@@ -23,8 +23,8 @@ public class User {
         return email;
     }
 
-    public String getId() {
-        return id;
+    public String getPersonalId() {
+        return personalId;
     }
 
     public String getAge() {

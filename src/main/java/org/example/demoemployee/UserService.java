@@ -54,7 +54,7 @@ public class UserService {
     private void saveUsersToFile() {
         try (PrintWriter writer = new PrintWriter(new FileWriter("users.txt"))) {
             for (User user : userList) {
-                writer.println(user.getUsername() + "," + user.getEmail() + "," + user.getId() + "," + user.getAge() + "," + user.getGender());
+                writer.println(user.getUsername() + "," + user.getEmail() + "," + user.getPersonalId() + "," + user.getAge() + "," + user.getGender());
             }
         } catch (IOException e) {
             e.printStackTrace();
